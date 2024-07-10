@@ -1,6 +1,7 @@
 package com.example.demo.repositories;
 
 import com.example.demo.dto.NovoUsuarioDTO;
+import com.example.demo.entities.CartaoEntity;
 import com.example.demo.entities.UsuarioEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,14 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
     @Modifying
     @Query("INSERT INTO UsuarioEntity u (u.nome, u.email, u.senha) VALUES (:nome, :email, :senha)")
     void criarNovoUsuario(@Param("nome") String nome,@Param("email") String email,@Param("senha") String senha);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE UsuarioEntity u SET u.nome = :nome, u.email = :email WHERE u.id = :id")
+    void alteracaoDeUsuario(
+            Long id,
+            @Param("nome") String nome,
+            @Param("email")String email);
+    /// @Param("cartoes")List<CartaoEntity> cartoes);
+
 }

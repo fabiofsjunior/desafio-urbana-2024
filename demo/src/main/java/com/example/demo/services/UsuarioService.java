@@ -24,6 +24,16 @@ public class UsuarioService {
     }
 
     public void criarNovoUsuario(NovoUsuarioDTO novoUsuarioDTO){
-        usuarioRepository.criarNovoUsuario(novoUsuarioDTO.getNome(),novoUsuarioDTO.getEmail(), novoUsuarioDTO.getSenha());
+        usuarioRepository.criarNovoUsuario(
+                novoUsuarioDTO.getNome(),
+                novoUsuarioDTO.getEmail(),
+                novoUsuarioDTO.getSenha());
+    }
+
+    public void alterarDadosUsuario(Long id, UsuarioDTO usuarioDTO) {
+        usuarioRepository.alteracaoDeUsuario(
+                id,
+                usuarioDTO.getNome(),
+                usuarioDTO.getEmail());
     }
 }
