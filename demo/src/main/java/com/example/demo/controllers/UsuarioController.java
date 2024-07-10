@@ -64,4 +64,11 @@ public class UsuarioController {
         return "Cartão criado com sucesso!";
     }
 
+    @DeleteMapping("/{id}/cartao")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public String deletarCartao(@PathVariable Long id){
+        usuarioService.deletarCartao(id);
+        return "Cartão deletado com sucesso!";
+
+    }
 }

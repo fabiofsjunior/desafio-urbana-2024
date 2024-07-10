@@ -59,9 +59,16 @@ public class UsuarioService {
         UsuarioEntity usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado!"));
         cartaoCriado.setUsuarioEntity(usuario);
+        cartaoCriado.setNome(usuario.getNome());
         usuario.getCartoes().add(cartaoCriado);
         usuarioRepository.save(usuario);
         cartaoRepository.save(cartaoCriado);
+
+    }
+
+    public void deletarCartao(Long id) {
+        cartaoRepository.removerCartao(id);
+
 
     }
 }

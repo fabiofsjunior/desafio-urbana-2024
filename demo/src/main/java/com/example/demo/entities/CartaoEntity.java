@@ -25,6 +25,7 @@ public class CartaoEntity {
     @ManyToOne
     @JsonIgnore
     @Valid
+    @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuarioEntity;
 
     public Long getId() {
