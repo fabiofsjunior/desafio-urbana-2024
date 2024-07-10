@@ -1,5 +1,7 @@
 package com.example.demo.services;
 
+import com.example.demo.dto.NovoUsuarioDTO;
+import com.example.demo.dto.UsuarioDTO;
 import com.example.demo.entities.UsuarioEntity;
 import com.example.demo.repositories.CartaoRepository;
 import com.example.demo.repositories.UsuarioRepository;
@@ -19,5 +21,9 @@ public class UsuarioService {
 
     public List<UsuarioEntity> listarTodosUsuarios() {
         return usuarioRepository.listar();
+    }
+
+    public void criarNovoUsuario(NovoUsuarioDTO novoUsuarioDTO){
+        usuarioRepository.criarNovoUsuario(novoUsuarioDTO.getNome(),novoUsuarioDTO.getEmail(), novoUsuarioDTO.getSenha());
     }
 }

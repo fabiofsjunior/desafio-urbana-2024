@@ -1,13 +1,14 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dto.NovoUsuarioDTO;
+
 import com.example.demo.entities.UsuarioEntity;
 import com.example.demo.services.UsuarioService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,10 +19,20 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private ModelMapper mapper;
+
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<UsuarioEntity> listarUsuarios(){
         return usuarioService.listarTodosUsuarios();
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public String criarUsuario(@RequestBody NovoUsuarioDTO novoUsuarioDTO ){
+        usuarioService.criarNovoUsuario(novoUsuarioDTO);
+        return "Usuario Criado com Sucesso";
+    }
 
 }
