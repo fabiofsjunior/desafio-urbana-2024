@@ -33,14 +33,21 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.CREATED)
     public String criarUsuario(@RequestBody NovoUsuarioDTO novoUsuarioDTO ){
         usuarioService.criarNovoUsuario(novoUsuarioDTO);
-        return "Usuario Criado com Sucesso!";
+        return "Usuario "+ novoUsuarioDTO.getNome() + "Criado com Sucesso!";
     }
     @PutMapping ("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public String alterarUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO){
         usuarioService.alterarDadosUsuario(id, usuarioDTO);
-        return "Usuario alterado com Sucesso!";
+        return "Usuario "+ usuarioDTO.getNome() + "alterado com Sucesso!";
     }
+    @DeleteMapping("/{id}")
+    public String deletarUsuario(@PathVariable Long id){
+        usuarioService.deletarUsuario(id);
+        return "Usuário deletado com sucesso!";
+
+    }
+
 
 
 }

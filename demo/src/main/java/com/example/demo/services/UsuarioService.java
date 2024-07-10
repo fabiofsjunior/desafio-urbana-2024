@@ -36,4 +36,9 @@ public class UsuarioService {
                 usuarioDTO.getNome(),
                 usuarioDTO.getEmail());
     }
+
+    public void deletarUsuario(Long id) {
+        usuarioRepository.removerUsuario(id);
+
+    }
 }

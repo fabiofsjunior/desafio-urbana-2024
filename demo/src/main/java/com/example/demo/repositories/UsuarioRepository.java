@@ -30,6 +30,12 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
             Long id,
             @Param("nome") String nome,
             @Param("email")String email);
-    /// @Param("cartoes")List<CartaoEntity> cartoes);
+        /// @Param("cartoes")List<CartaoEntity> cartoes);
+
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM UsuarioEntity u WHERE u.id = :id")
+    void removerUsuario(@Param("id")Long id);
 
 }
