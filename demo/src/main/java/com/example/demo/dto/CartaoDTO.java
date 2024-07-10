@@ -1,13 +1,15 @@
 package com.example.demo.dto;
 
+import com.example.demo.entities.UsuarioEntity;
 import com.example.demo.enums.TipoCartao;
 
 public class CartaoDTO {
     private Long id;
-    private Integer numeroCartao;
+    private String numeroCartao;
     private String nome;
     private Boolean status;
     private TipoCartao tipoCartao;
+    private UsuarioEntity usuarioEntity;
 
 
     public Long getId() {
@@ -18,11 +20,11 @@ public class CartaoDTO {
         this.id = id;
     }
 
-    public Integer getNumeroCartao() {
+    public String getNumeroCartao() {
         return numeroCartao;
     }
 
-    public void setNumeroCartao(Integer numeroCartao) {
+    public void setNumeroCartao(String numeroCartao) {
         this.numeroCartao = numeroCartao;
     }
 
@@ -48,5 +50,13 @@ public class CartaoDTO {
 
     public void setTipoCartao(TipoCartao tipoCartao) {
         this.tipoCartao = tipoCartao;
+    }
+
+    public UsuarioEntity getUsuarioId() {
+        return usuarioEntity;
+    }
+
+    public void setUsuarioId(UsuarioEntity usuarioId) {
+        this.usuarioEntity = usuarioId;
     }
 }

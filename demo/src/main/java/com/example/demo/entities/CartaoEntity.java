@@ -1,7 +1,10 @@
 package com.example.demo.entities;
 
 import com.example.demo.enums.TipoCartao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
 
@@ -12,13 +15,16 @@ public class CartaoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer numeroCartao;
+    private String numeroCartao;
+    @NotBlank
     private String nome;
     private Boolean status = true;
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_cartao")
     private TipoCartao tipoCartao;
     @ManyToOne
+    @JsonIgnore
+    @Valid
     private UsuarioEntity usuarioEntity;
 
     public Long getId() {
@@ -29,11 +35,11 @@ public class CartaoEntity {
         this.id = id;
     }
 
-    public Integer getNumeroCartao() {
+    public String getNumeroCartao() {
         return numeroCartao;
     }
 
-    public void setNumeroCartao(Integer numeroCartao) {
+    public void setNumeroCartao(String numeroCartao) {
         this.numeroCartao = numeroCartao;
     }
 
