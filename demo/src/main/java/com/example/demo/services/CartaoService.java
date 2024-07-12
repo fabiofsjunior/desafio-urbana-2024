@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -37,5 +38,12 @@ public class CartaoService {
     public List<CartaoEntity> listarTodosCartoes() {
             return cartaoRepository.listar();
 
+    }
+
+
+    public List<CartaoEntity> listarCartoesPorIdUsuario(Long idUsuario) {
+         Optional<UsuarioEntity> usuario = usuarioRepository.findById(idUsuario);
+         List<CartaoEntity> cartoes = usuario.get().getCartoes();
+        return cartoes;
     }
 }
