@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cartao")
+@CrossOrigin(origins = "*")
 public class CartaoController {
 
     @Autowired

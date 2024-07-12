@@ -1,12 +1,7 @@
 package com.example.demo.repositories;
 
-import com.example.demo.dto.CartaoDTO;
-import com.example.demo.dto.NovoUsuarioDTO;
-import com.example.demo.entities.CartaoEntity;
 import com.example.demo.entities.UsuarioEntity;
-import com.example.demo.enums.TipoCartao;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -41,6 +36,10 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
     @Query("DELETE FROM UsuarioEntity u WHERE u.id = :id")
     void removerUsuario(@Param("id")Long id);
 
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM CartaoEntity c WHERE c.id = :idCartao")
+    void removerCartao(@Param("idCartao") Long idCartao);
 
 
 
