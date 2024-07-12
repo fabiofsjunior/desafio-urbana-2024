@@ -6,9 +6,11 @@ import com.example.demo.entities.CartaoEntity;
 import com.example.demo.entities.UsuarioEntity;
 import com.example.demo.repositories.CartaoRepository;
 import com.example.demo.repositories.UsuarioRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -20,10 +22,14 @@ public class UsuarioService {
     CartaoRepository cartaoRepository;
     @Autowired
     CartaoService cartaoService;
+    @Autowired
+    private ModelMapper mapper;
 
 
-    public List<UsuarioEntity> listarTodosUsuarios() {
-        return usuarioRepository.listar();
+    public List<UsuarioDTO> listarTodosUsuarios() {
+        var listar = usuarioRepository.listar();
+        List<UsuarioDTO> usuariosDTO = Arrays.asList(mapper.map(listar, UsuarioDTO[].class));
+        return usuariosDTO;
     }
 
     public void criarNovoUsuario(NovoUsuarioDTO novoUsuarioDTO){
