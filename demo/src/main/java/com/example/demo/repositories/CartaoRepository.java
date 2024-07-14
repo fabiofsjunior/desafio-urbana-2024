@@ -19,11 +19,22 @@ public interface CartaoRepository extends JpaRepository<CartaoEntity, Long> {
     @Query("SELECT u FROM CartaoEntity u")
     List<CartaoEntity> listar();
 
+    ///Exclui os cartoes de um Usuário
     @Transactional
     @Modifying
-    @Query("DELETE FROM CartaoEntity c WHERE c.id = :idCartao")
-    public void excluirCartao(@Param("idCartao") Long idCartao);
+    @Query(value = "DELETE FROM usuarios_cartoes WHERE usuario_entity_id = ? AND cartoes_id = ?", nativeQuery = true)
+    public void excluirCartao(Long idUsuario, Long idCartao);
 
+    ///Limpa o relacionamento
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM usuarios_cartoes WHERE usuario_entity_id = ?", nativeQuery = true)
+    public void limparCartoesUsuario(Long idUsuario);
 
+    ///Limpa o relacionamento
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM cartoes WHERE usuario_entity_id = ?", nativeQuery = true)
+    public void excluirCartoesUsuario(Long idUsuario);
 
 }

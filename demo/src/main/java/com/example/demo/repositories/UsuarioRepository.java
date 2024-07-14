@@ -18,29 +18,27 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
     @Transactional
     @Modifying
-    @Query("INSERT INTO UsuarioEntity u (u.nome, u.email, u.senha) VALUES (:nome, :email, :senha)")
-    void criarNovoUsuario(@Param("nome") String nome,
-                          @Param("email") String email,
-                          @Param("senha") String senha);
+    @Query(value = "INSERT INTO usuarios  (nome, email, senha) VALUES (?, ?, ?)", nativeQuery = true)
+    void criarNovoUsuario(String nome, String email, String senha);
 
     @Transactional
     @Modifying
-    @Query("UPDATE UsuarioEntity u SET u.nome = :nome, u.email = :email WHERE u.id = :id")
-    void alteracaoDeUsuario(
-            Long id,
-            @Param("nome") String nome,
-            @Param("email")String email);
+    @Query(value = "UPDATE usuarios SET nome = ?, email = ? WHERE id = ?", nativeQuery = true)
+    void alteracaoDeUsuario(String nome,String email, Long id);
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM UsuarioEntity u WHERE u.id = :id")
-    void removerUsuario(@Param("id")Long id);
+    @Query(value = "DELETE FROM usuarios WHERE id = ?", nativeQuery = true)
+    void removerUsuario(Long id);
 
     @Transactional
     @Modifying
-    @Query("DELETE FROM CartaoEntity c WHERE c.id = :idCartao")
+    @Query(value = "DELETE FROM cartoes c WHERE c.id = :idCartao", nativeQuery = true)
     void removerCartao(@Param("idCartao") Long idCartao);
 
+
+    @Query(value = "SELECT * FROM usuarios u WHERE u.id = ?", nativeQuery = true)
+    UsuarioEntity buscarUsuarioById(Long idUsuario);
 
 
 }

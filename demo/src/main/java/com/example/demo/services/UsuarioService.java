@@ -41,13 +41,16 @@ public class UsuarioService {
 
     public void alterarDadosUsuario(Long id, UsuarioDTO usuarioDTO) {
         usuarioRepository.alteracaoDeUsuario(
-                id,
                 usuarioDTO.getNome(),
-                usuarioDTO.getEmail());
+                usuarioDTO.getEmail(),
+                id);
     }
 
     public void deletarUsuario(Long id) {
+        cartaoRepository.excluirCartoesUsuario(id);
+        cartaoRepository.limparCartoesUsuario(id);
         usuarioRepository.removerUsuario(id);
+
 
     }
 
@@ -71,10 +74,19 @@ public class UsuarioService {
 
     }
 
-    public void deletarCartao(Long idCartao) {
-        cartaoRepository.excluirCartao(idCartao);
+    public void deletarCartao(Long idUsuario, Long idCartao) {
+        cartaoRepository.excluirCartao(idUsuario, idCartao);
 
     }
+
+    public UsuarioEntity buscarUsuarioPorId(Long id){
+        UsuarioEntity usuario = usuarioRepository.buscarUsuarioById(id);
+        return usuario;
+    }
+
+
+
+
 
 
 }
