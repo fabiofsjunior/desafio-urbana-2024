@@ -37,4 +37,21 @@ public interface CartaoRepository extends JpaRepository<CartaoEntity, Long> {
     @Query(value = "DELETE FROM cartoes WHERE usuario_entity_id = ?", nativeQuery = true)
     public void excluirCartoesUsuario(Long idUsuario);
 
+    ///Deleta um único cartão
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM cartoes WHERE id = ?", nativeQuery = true)
+    public void excluirUmCartao(Long idCartao);
+
+    ///Limpa o relacionamento de um único cartão
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM usuarios_cartoes WHERE cartoes_id = ?", nativeQuery = true)
+    public void limparCartoesPorId(Long idCartao);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE cartoes SET status = ? WHERE id = ? ", nativeQuery = true)
+    void updateStatusCartao(Boolean status, Long Id);
+
 }

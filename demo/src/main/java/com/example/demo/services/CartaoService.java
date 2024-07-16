@@ -46,4 +46,13 @@ public class CartaoService {
          List<CartaoEntity> cartoes = usuario.get().getCartoes();
         return cartoes;
     }
+
+    public void deletarCartao(Long id) {
+        cartaoRepository.limparCartoesPorId(id);
+        cartaoRepository.excluirUmCartao(id);
+    }
+
+    public void atualizarCartao(Boolean status, Long id) {
+        cartaoRepository.updateStatusCartao(status, id);
+    }
 }
