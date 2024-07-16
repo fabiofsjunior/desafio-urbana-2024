@@ -19,7 +19,7 @@ public interface CartaoRepository extends JpaRepository<CartaoEntity, Long> {
     @Query("SELECT u FROM CartaoEntity u")
     List<CartaoEntity> listar();
 
-    ///Exclui os cartoes de um Usuário
+    ///Exclui um cartão de um Usuário
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM usuarios_cartoes WHERE usuario_entity_id = ? AND cartoes_id = ?", nativeQuery = true)
@@ -31,7 +31,7 @@ public interface CartaoRepository extends JpaRepository<CartaoEntity, Long> {
     @Query(value = "DELETE FROM usuarios_cartoes WHERE usuario_entity_id = ?", nativeQuery = true)
     public void limparCartoesUsuario(Long idUsuario);
 
-    ///Limpa o relacionamento
+    ///Deleta os cartões
     @Transactional
     @Modifying
     @Query(value = "DELETE FROM cartoes WHERE usuario_entity_id = ?", nativeQuery = true)

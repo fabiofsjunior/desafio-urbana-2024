@@ -20,7 +20,7 @@ public class UsuarioEntity {
     private String email;
     @NotBlank
     private String senha;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CartaoEntity> cartoes;
 
     public Long getId() {

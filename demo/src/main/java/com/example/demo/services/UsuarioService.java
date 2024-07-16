@@ -47,11 +47,9 @@ public class UsuarioService {
     }
 
     public void deletarUsuario(Long id) {
-        cartaoRepository.excluirCartoesUsuario(id);
         cartaoRepository.limparCartoesUsuario(id);
+        cartaoRepository.excluirCartoesUsuario(id);
         usuarioRepository.removerUsuario(id);
-
-
     }
 
     public void criarNovoCartao(Long id, CartaoEntity cartaoEntity) {
