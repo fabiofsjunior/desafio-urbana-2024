@@ -4,11 +4,9 @@ import com.example.demo.dto.NovoUsuarioDTO;
 import com.example.demo.dto.UsuarioDTO;
 import com.example.demo.entities.CartaoEntity;
 import com.example.demo.entities.UsuarioEntity;
-import com.example.demo.exceptions.UsuarioExceptions;
 import com.example.demo.services.CartaoService;
 import com.example.demo.services.UsuarioService;
 import jakarta.validation.Valid;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,9 +80,8 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{idUsuario}/cartao/{idCartao}")
-    public ResponseEntity<?> deletarCartao(@PathVariable Long idUsuario, @PathVariable Long idCartao){
+    public ResponseEntity<?> modalDeletarCartao(@PathVariable Long idUsuario, @PathVariable Long idCartao){
         usuarioService.deletarCartao(idUsuario, idCartao);
         return ResponseEntity.status(HttpStatus.OK).body("Cartão deletado com sucesso!");
-
     }
 }

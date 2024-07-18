@@ -21,25 +21,20 @@ public class CartaoService {
 
 
     public String gerarNumeroCartao(){
-
         Random random = new Random();
         int parteAleatoria = random.nextInt(100000000);
 
         String parteAleatoriaString = String.format("%08d", parteAleatoria);
 
-        ///Concatenar a parte aleatória com o prefixo e sufixo
+        ///Concatena a parte aleatória com o prefixo e sufixo
         String numeroGerado = String.format("90.0.%s-0", parteAleatoriaString);
 
-        ///int numeroInteiro = Integer.valueOf(numeroGerado);
-        // Retornar o número gerado
         return numeroGerado;
     }
 
     public List<CartaoEntity> listarTodosCartoes() {
             return cartaoRepository.listar();
-
     }
-
 
     public List<CartaoEntity> listarCartoesPorIdUsuario(Long idUsuario) {
          Optional<UsuarioEntity> usuario = usuarioRepository.findById(idUsuario);

@@ -55,10 +55,7 @@ public class UsuarioService {
     public void criarNovoCartao(Long id, CartaoEntity cartaoEntity) {
         cartaoEntity.setNumeroCartao(cartaoService.gerarNumeroCartao());
        cartaoRepository.save(cartaoEntity); //cartão criado e salvo no DB.
-
-        ///Falta linkar com o usuario especifico.
        linkaCartaoAoUsuario(id, cartaoEntity);
-
     }
 
     public void linkaCartaoAoUsuario(Long id, CartaoEntity cartaoCriado){
@@ -69,12 +66,11 @@ public class UsuarioService {
         usuario.getCartoes().add(cartaoCriado);
         usuarioRepository.save(usuario);
         cartaoRepository.save(cartaoCriado);
-
     }
 
     public void deletarCartao(Long idUsuario, Long idCartao) {
-        cartaoRepository.excluirCartao(idUsuario, idCartao);
-
+        cartaoRepository.limparCartoesUsuario(idUsuario);
+        cartaoRepository.excluirUmCartao(idCartao);
     }
 
     public UsuarioEntity buscarUsuarioPorId(Long id){
