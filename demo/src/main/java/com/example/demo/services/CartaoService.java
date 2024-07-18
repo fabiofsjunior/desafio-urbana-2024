@@ -33,7 +33,7 @@ public class CartaoService {
     }
 
     public List<CartaoEntity> listarTodosCartoes() {
-            return cartaoRepository.listar();
+            return cartaoRepository.listarTudo();
     }
 
     public List<CartaoEntity> listarCartoesPorIdUsuario(Long idUsuario) {

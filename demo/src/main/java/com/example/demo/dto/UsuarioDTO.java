@@ -1,12 +1,14 @@
 package com.example.demo.dto;
 
 import com.example.demo.entities.CartaoEntity;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
 public class UsuarioDTO {
     private Long id;
     private String nome;
+    @Valid
     private String email;
     private List<CartaoEntity> cartoes;
 

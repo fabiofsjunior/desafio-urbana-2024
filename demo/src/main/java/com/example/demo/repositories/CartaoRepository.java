@@ -14,7 +14,7 @@ import java.util.List;
 public interface CartaoRepository extends JpaRepository<CartaoEntity, Long> {
 
     @Query("SELECT u FROM CartaoEntity u")
-    List<CartaoEntity> listar();
+    List<CartaoEntity> listarTudo();
 
     ///Limpa o relacionamento usuario e cartão;
     @Transactional
@@ -46,4 +46,9 @@ public interface CartaoRepository extends JpaRepository<CartaoEntity, Long> {
     @Query(value = "UPDATE cartoes SET status = ? WHERE id = ? ", nativeQuery = true)
     void updateStatusCartao(Boolean status, Long Id);
 
+    /// Atualiza o nome do dono do cartao;
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE cartoes SET nome = ? WHERE usuario_entity_id = ? ", nativeQuery = true)
+    void updateNomeCartao(String nome, Long idUsuario);
 }

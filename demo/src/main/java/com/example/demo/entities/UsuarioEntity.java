@@ -16,7 +16,8 @@ public class UsuarioEntity {
     private Long id;
     @NotBlank
     private String nome;
-    @Email
+    @NotBlank
+    @Email(message = "Email inválido")
     private String email;
     @NotBlank
     private String senha;

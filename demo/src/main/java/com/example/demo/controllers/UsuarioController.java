@@ -4,6 +4,8 @@ import com.example.demo.dto.NovoUsuarioDTO;
 import com.example.demo.dto.UsuarioDTO;
 import com.example.demo.entities.CartaoEntity;
 import com.example.demo.entities.UsuarioEntity;
+import com.example.demo.exceptions.EmailExceptions;
+import com.example.demo.exceptions.UsuarioExceptions;
 import com.example.demo.services.CartaoService;
 import com.example.demo.services.UsuarioService;
 import jakarta.validation.Valid;
@@ -30,15 +32,19 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> cadastrarUsuario(@RequestBody @Valid NovoUsuarioDTO novoUsuarioDTO ){
-        ///Falta tratar erro caso passe um BAD REQUEST
-        usuarioService.criarNovoUsuario(novoUsuarioDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuarioDTO);
+    public ResponseEntity<?> cadastrarUsuario(@RequestBody @Valid NovoUsuarioDTO novoUsuarioDTO){
+
+        if (!usuarioService.eEmailValido(novoUsuarioDTO.getEmail())){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }else{
+            usuarioService.criarNovoUsuario(novoUsuarioDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuarioDTO);
+        }
+
     }
 
     @PostMapping("/{id}/cartao")
     public ResponseEntity<?> cadastrarCartaoParaUsuario(@PathVariable Long id, @RequestBody @Valid CartaoEntity cartaoEntity ){
-        ///Falta tratar erro caso passe um BAD REQUEST
         usuarioService.criarNovoCartao(id, cartaoEntity);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Cartão "
@@ -52,7 +58,6 @@ public class UsuarioController {
 
     @PutMapping ("/{id}")
     public ResponseEntity<?> alterarDadosUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioDTO usuarioDTO){
-        ///Falta tratar erro caso passe um BAD REQUEST
         UsuarioEntity usuario = usuarioService.buscarUsuarioPorId(id);
         if (usuario == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
@@ -68,7 +73,6 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletarUsuario(@PathVariable Long id){
-        ///Falta tratar erro caso passe um BAD REQUEST
         UsuarioEntity usuario = usuarioService.buscarUsuarioPorId(id);
 
         if (usuario == null){

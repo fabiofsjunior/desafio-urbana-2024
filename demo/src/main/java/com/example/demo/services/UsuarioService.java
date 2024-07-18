@@ -44,6 +44,9 @@ public class UsuarioService {
                 usuarioDTO.getNome(),
                 usuarioDTO.getEmail(),
                 id);
+        cartaoRepository.updateNomeCartao(
+                usuarioDTO.getNome(),
+                usuarioDTO.getId());
     }
 
     public void deletarUsuario(Long id) {
@@ -78,6 +81,7 @@ public class UsuarioService {
         return usuario;
     }
 
-
-
+    public boolean eEmailValido(String email) {
+        return email != null && email.contains("@") && email.contains(".");
+    }
 }

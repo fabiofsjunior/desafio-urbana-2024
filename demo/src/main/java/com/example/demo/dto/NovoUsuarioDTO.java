@@ -1,7 +1,10 @@
 package com.example.demo.dto;
 
+import jakarta.validation.Valid;
+
 public class NovoUsuarioDTO {
     private String nome;
+    @Valid
     private String email;
     private String senha;
 
