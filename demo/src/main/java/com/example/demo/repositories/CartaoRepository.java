@@ -15,7 +15,7 @@ public interface CartaoRepository extends JpaRepository<CartaoEntity, Long> {
 
     @Query("SELECT u FROM CartaoEntity u")
     List<CartaoEntity> listar();
-    
+
     ///Limpa o relacionamento usuario e cartão;
     @Transactional
     @Modifying

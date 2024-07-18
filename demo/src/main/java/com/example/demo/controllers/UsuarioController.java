@@ -30,14 +30,28 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<?> criarUsuario(@RequestBody @Valid NovoUsuarioDTO novoUsuarioDTO ){
+    public ResponseEntity<?> cadastrarUsuario(@RequestBody @Valid NovoUsuarioDTO novoUsuarioDTO ){
         ///Falta tratar erro caso passe um BAD REQUEST
         usuarioService.criarNovoUsuario(novoUsuarioDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuarioDTO);
     }
 
+    @PostMapping("/{id}/cartao")
+    public ResponseEntity<?> cadastrarCartaoParaUsuario(@PathVariable Long id, @RequestBody @Valid CartaoEntity cartaoEntity ){
+        ///Falta tratar erro caso passe um BAD REQUEST
+        usuarioService.criarNovoCartao(id, cartaoEntity);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Cartão "
+                        + cartaoEntity.getTipoCartao()
+                        + " Nr: "
+                        + cartaoEntity.getNumeroCartao()
+                        + ", para o Usuário: "
+                        + cartaoEntity.getNome()
+                        + ", criado com sucesso!");
+    }
+
     @PutMapping ("/{id}")
-    public ResponseEntity<?> alterarUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioDTO usuarioDTO){
+    public ResponseEntity<?> alterarDadosUsuario(@PathVariable Long id, @RequestBody @Valid UsuarioDTO usuarioDTO){
         ///Falta tratar erro caso passe um BAD REQUEST
         UsuarioEntity usuario = usuarioService.buscarUsuarioPorId(id);
         if (usuario == null){
@@ -63,20 +77,6 @@ public class UsuarioController {
             usuarioService.deletarUsuario(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Usuário deletado com sucesso!");
         }
-    }
-
-    @PostMapping("/{id}/cartao")
-    public ResponseEntity<?> criarCartaoNoUsuario(@PathVariable Long id, @RequestBody @Valid CartaoEntity cartaoEntity ){
-        ///Falta tratar erro caso passe um BAD REQUEST
-        usuarioService.criarNovoCartao(id, cartaoEntity);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Cartão "
-                        + cartaoEntity.getTipoCartao()
-                        + " Nr: "
-                        + cartaoEntity.getNumeroCartao()
-                        + ", para o Usuário: "
-                        + cartaoEntity.getNome()
-                        + ", criado com sucesso!");
     }
 
     @DeleteMapping("/{idUsuario}/cartao/{idCartao}")

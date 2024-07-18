@@ -15,23 +15,23 @@ public class CartaoController {
     private CartaoService cartaoService;
 
     @GetMapping
-      public ResponseEntity<?> listarCartoes(){
+      public ResponseEntity<?> listarTodosCartoes(){
         return ResponseEntity.status(HttpStatus.OK).body(cartaoService.listarTodosCartoes());
     }
 
     @GetMapping("/{id}/cartao")
-    public ResponseEntity<?> listarUsuarios(@PathVariable Long id){
+    public ResponseEntity<?> listarCartaoDoUsuario(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(cartaoService.listarCartoesPorIdUsuario(id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCartao(@PathVariable Long id){
+    public ResponseEntity<Void> excluirCartao(@PathVariable Long id){
         cartaoService.deletarCartao(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/{id}/{status}")
-    public ResponseEntity<?> ativarDesativarCartao(@PathVariable Boolean status, @PathVariable Long id){
+    public ResponseEntity<?> alterarStatusCartao(@PathVariable Boolean status, @PathVariable Long id){
         cartaoService.atualizarCartao(status, id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
